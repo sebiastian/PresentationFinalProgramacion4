@@ -12,4 +12,8 @@ public interface ILocationRepository
     bool DeleteLocation(int id);
     bool CreateLocation(Location location);
 
+
+
+
+
 }

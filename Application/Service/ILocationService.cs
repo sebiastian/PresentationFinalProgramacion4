@@ -1,7 +1,5 @@
 ﻿using Contract.Location.Request;
 using Contract.Location.Response;
-using Contract.User.Request;
-using Contract.User.Response;
 
 namespace Application.Service;
 
