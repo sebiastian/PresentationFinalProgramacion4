@@ -1,4 +1,5 @@
 using Application.Abstraction;
+using Application.Interfaces;
 using Contract.Photographer.Request;
 using Contract.Photographer.Response;
 using Domain.Entity;

@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace Contract.Location.Request
@@ -16,6 +15,10 @@ namespace Contract.Location.Request
 
         [StringLength(300)]
         public string? Description { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string City { get; set; } = null!;
     }
 
 }

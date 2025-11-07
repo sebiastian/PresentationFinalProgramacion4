@@ -1,4 +1,5 @@
 ﻿using Application.Abstraction;
+using Application.Interfaces;
 using Contract.User.Request;
 using Contract.User.Response;
 using Domain.Entity;

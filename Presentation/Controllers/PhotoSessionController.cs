@@ -1,6 +1,7 @@
-﻿using Application.Abstraction;
+﻿using Application.Interfaces;
 using Contract.PhotoSession.Request;
 using Contract.PhotoSession.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -28,6 +29,7 @@ public class PhotoSessionController : ControllerBase
         var list = _service.GetAll();
         return Ok(list);
     }
+    [Authorize(Roles = "Photographer")]
 
     [HttpPost]
     public IActionResult Create([FromBody] CreatePhotoSessionRequest request)
@@ -50,6 +52,8 @@ public class PhotoSessionController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Photographer")]
+
     [HttpPut("{id}")]
     public IActionResult Update([FromRoute] int id, [FromBody] UpdatePhotoSessionRequest request)
     {
@@ -71,6 +75,8 @@ public class PhotoSessionController : ControllerBase
             return StatusCode(500, "Ocurrió un error interno al actualizar la sesión.");
         }
     }
+
+    [Authorize(Roles = "Photographer")]
 
     [HttpDelete("{id}")]
     public IActionResult Delete([FromRoute] int id)

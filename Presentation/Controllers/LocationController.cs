@@ -1,9 +1,11 @@
 ﻿using Application.Abstraction;
-using Application.Service;
+using Application.Interfaces;
 using Contract.Location.Request;
 using Contract.Location.Response;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Presentation.Controllers;
 
@@ -19,9 +21,9 @@ public class LocationController : ControllerBase
     }
 
     [HttpGet("GetAllLocation")]
-    public ActionResult<List<LocationResponse>> GetAllLocation()
+    public async Task<ActionResult<List<LocationResponse>>> GetAllLocation()
     {
-        var locations = _locationService.GetAllLocation();
+        var locations = await _locationService.GetAllLocation();
         return Ok(locations);
     }
 
@@ -33,6 +35,8 @@ public class LocationController : ControllerBase
         return Ok(location);
     }
 
+    [Authorize(Roles = "Photographer")]
+
     [HttpPut("UpdateLocation/{id}")]
     public ActionResult UpdateLocation([FromRoute] int id, [FromBody] UpdateLocationRequest request)
     {
@@ -41,6 +45,8 @@ public class LocationController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Photographer")]
+
     [HttpDelete("DeleteLocation/{id}")]
     public ActionResult DeleteLocation([FromRoute] int id)
     {
@@ -48,6 +54,8 @@ public class LocationController : ControllerBase
         if (result) return Ok();
         return NotFound();
     }
+
+    [Authorize(Roles = "Photographer")]
 
     [HttpPost]
         public ActionResult CreateLocation([FromBody] CreateLocationRequest request)

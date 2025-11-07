@@ -8,7 +8,8 @@ public class Location
     public string Name { get; set; }
     public string SpaceType { get; set; }
     public string Description { get; set; }
+    public string City { get; set; }
 
     // Navegación a sesiones
     public ICollection<PhotoSession> Sessions { get; set; } = new List<PhotoSession>();
-}   
+}

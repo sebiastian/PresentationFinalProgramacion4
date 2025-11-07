@@ -2,7 +2,7 @@
 using Contract.PhotoSession.Response;
 using System.Collections.Generic;
 
-namespace Application.Abstraction;
+namespace Application.Interfaces;
 
 public interface IPhotoSessionService
 {

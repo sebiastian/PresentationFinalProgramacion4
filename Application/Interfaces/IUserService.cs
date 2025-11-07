@@ -6,7 +6,7 @@
 using Contract.User.Request;
 using Contract.User.Response; // Importa el DTO que se usará en el método de la interfaz
 
-namespace Application.Service
+namespace Application.Interfaces
 {
     // Interfaz pública que declara las operaciones que el servicio de usuario ofrece.
     // No contiene lógica, solo la firma de los métodos (contrato).

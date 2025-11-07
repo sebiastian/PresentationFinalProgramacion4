@@ -1,4 +1,5 @@
 ﻿using Application.Abstraction;
+using Application.Interfaces;
 using Contract.Location.Response;
 using Contract.Photographer.Response;
 using Contract.PhotoSession.Request;

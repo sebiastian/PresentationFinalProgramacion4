@@ -1,8 +1,9 @@
-using Application.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Contract.Photographer.Response;
 using Contract.Photographer.Request;
+using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers;
 
@@ -16,6 +17,9 @@ public class PhotographerController : ControllerBase
     {
         _photographerService = photographerService;
     }
+
+    
+    
 
     [HttpGet("GetPhotographer/{id}")]
     public ActionResult<PhotographerResponse> GetPhotographerById([FromRoute] int id)
@@ -32,6 +36,9 @@ public class PhotographerController : ControllerBase
         var photographers = _photographerService.GetAllPhotographers();
         return Ok(photographers);
     }
+    
+    
+    [Authorize(Roles = "Photographer")]
 
     [HttpPost]
     public ActionResult CreatePhotographer([FromBody] CreatePhotographerRequest request)
@@ -40,8 +47,10 @@ public class PhotographerController : ControllerBase
 
         var result = _photographerService.CreatePhotographer(request);
         if (result) return Ok();
-        return BadRequest("No se pudo crear el fotógrafo");
+        return BadRequest();
     }
+
+    [Authorize(Roles = "Photographer")]
 
     [HttpPut("UpdatePhotographer/{id}")]
     public ActionResult UpdatePhotographer([FromRoute] int id, [FromBody] UpdatePhotographerRequest request)
@@ -52,6 +61,8 @@ public class PhotographerController : ControllerBase
         if (result) return Ok();
         return NotFound();
     }
+
+    [Authorize(Roles = "Photographer")]
 
     [HttpDelete("DeletePhotographer/{id}")]
     public ActionResult DeletePhotographer([FromRoute] int id)

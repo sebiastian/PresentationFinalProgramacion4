@@ -2,18 +2,6 @@
 
 namespace Application.Abstraction;
 
-public interface ILocationRepository
+public interface ILocationRepository : IRepositoryBase<Location>
 {
-    List<Location> GetAllLocation();
-    Location GetLocation(string id);
-
-    bool UpdateLocation(Location location);
-
-    bool DeleteLocation(int id);
-    bool CreateLocation(Location location);
-
-
-
-
-
 }

@@ -1,6 +1,7 @@
-﻿using Application.Service;
-using Microsoft.AspNetCore.Mvc;
+﻿using Application.Interfaces;
 using Contract.User.Response;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Presentation.Controllers;
@@ -31,6 +32,9 @@ public class UserController : ControllerBase
         var users = _userService.GetAllClients();
         return Ok(users);
     }
+
+    [Authorize(Roles = "Photographer")]
+
     [HttpDelete("DeleteClient/{id}")]
     public ActionResult DeleteClient([FromRoute] int id)
     {
@@ -42,6 +46,8 @@ public class UserController : ControllerBase
         return NotFound();
     }
 
+    [Authorize(Roles = "Photographer")]
+
     [HttpPost]
     public ActionResult CreateUser([FromBody] Contract.User.Request.CreateUserRequest request)
     {
@@ -52,6 +58,8 @@ public class UserController : ControllerBase
         }
         return BadRequest("No se creo el Usuario");
     }
+
+    [Authorize(Roles = "Photographer")]
 
     [HttpPut("UpdateUser/{id}")]
     public ActionResult UpdateUser([FromRoute] int id, [FromBody] Contract.User.Request.UpdateUserRequest request)

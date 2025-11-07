@@ -1,11 +1,13 @@
-﻿using Contract.Location.Request;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Contract.Location.Request;
 using Contract.Location.Response;
 
-namespace Application.Service;
+namespace Application.Interfaces;
 
 public interface ILocationService
 {
-    List<LocationResponse> GetAllLocation();
+    Task<List<LocationResponse>> GetAllLocation();
     LocationResponse GetLocation(string id);
 
     bool UpdateLocation(int id, UpdateLocationRequest request);
