@@ -1,11 +1,10 @@
 ﻿using Domain.Entity;
 using System.Collections.Generic;
 
-namespace Application.Abstraction;
+namespace Domain.Abstraction;
 
 public interface IPhotoSessionRepository : IRepositoryBase<PhotoSession>
 {
-    // Métodos específicos que mantienen los nombres originales y lógica de relaciones
     PhotoSession GetById(int id);
     List<PhotoSession> GetAll();
     PhotoSession Create(PhotoSession newSession);

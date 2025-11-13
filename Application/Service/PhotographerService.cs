@@ -1,10 +1,8 @@
-using Application.Abstraction;
+﻿using Domain.Abstraction;
 using Application.Interfaces;
 using Contract.Photographer.Request;
 using Contract.Photographer.Response;
 using Domain.Entity;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -21,7 +19,8 @@ public class PhotographerService : IPhotographerService
 
     public PhotographerResponse GetPhotographerById(int id)
     {
-        var p = _photographerRepository.GetPhotographerById(id);
+        // REFACTORIZACIÓN: Cambio de .GetPhotographerById() → .GetById()
+        var p = _photographerRepository.GetById(id);
         if (p == null) return null;
 
         return new PhotographerResponse
@@ -36,7 +35,8 @@ public class PhotographerService : IPhotographerService
 
     public List<PhotographerResponse> GetAllPhotographers()
     {
-        return _photographerRepository.GetAllPhotographers()
+        // REFACTORIZACIÓN: Cambio de .GetAllPhotographers() → .GetAll()
+        return _photographerRepository.GetAll()
             .Select(p => new PhotographerResponse
             {
                 Id = p.Id,
@@ -58,28 +58,29 @@ public class PhotographerService : IPhotographerService
             Rol = request.Role
         };
 
-        return _photographerRepository.CreatePhotographer(photographer);
+        // REFACTORIZACIÓN: Cambio de .CreatePhotographer() → .Create()
+        return _photographerRepository.Create(photographer);
     }
 
     public bool UpdatePhotographer(int id, UpdatePhotographerRequest request)
     {
-        var existing = _photographerRepository.GetPhotographerById(id);
+        // REFACTORIZACIÓN: Cambio de .GetPhotographerById() → .GetById()
+        var existing = _photographerRepository.GetById(id);
         if (existing == null) return false;
 
         var updated = new Photographer
         {
-            // Id ser� usado por el repositorio para localizar el registro a actualizar
             Name = request.Name,
             Email = request.Email,
             Phone = request.Phone,
         };
 
+        // ✅ MANTENER: .UpdatePhotographer() porque tiene lógica específica
         return _photographerRepository.UpdatePhotographer(id, updated);
     }
 
     private static string HashPassword(string password)
     {
-        // Hash simple SHA256 (simulado para el repositorio en memoria)
         using var sha = SHA256.Create();
         var bytes = Encoding.UTF8.GetBytes(password);
         var hashed = sha.ComputeHash(bytes);
@@ -88,7 +89,7 @@ public class PhotographerService : IPhotographerService
 
     public bool DeletePhotographer(int id)
     {
-        return _photographerRepository.DeletePhotographer(id);
-
+        // REFACTORIZACIÓN: Cambio de .DeletePhotographer() → .Delete()
+        return _photographerRepository.Delete(id);
     }
 }

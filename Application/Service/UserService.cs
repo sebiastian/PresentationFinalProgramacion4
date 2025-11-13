@@ -1,12 +1,10 @@
-﻿using Application.Abstraction;
+﻿using Domain.Abstraction;
 using Application.Interfaces;
 using Contract.User.Request;
 using Contract.User.Response;
 using Domain.Entity;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-
 
 namespace Application.Service
 {
@@ -19,13 +17,13 @@ namespace Application.Service
             _userRepository = userRepository;
         }
 
-        public UserResponse GetUserById (int id) 
+        public UserResponse GetUserById(int id) 
         { 
-            var user = _userRepository.GetUserById(id);
+            // REFACTORIZACIÓN: Cambio de .GetUserById() → .GetById()
+            var user = _userRepository.GetById(id);
 
             return new UserResponse
             {
-                // Map domain User.Name -> DTO Name
                 Name = user.Name,
                 Email = user.Email
             };
@@ -33,7 +31,8 @@ namespace Application.Service
 
         public List<UserResponse> GetAllClients()
         {
-            var users = _userRepository.GetAllClients();
+            // REFACTORIZACIÓN: Cambio de .GetAllClients() → .GetAll()
+            var users = _userRepository.GetAll();
 
             return users.Select(client => new UserResponse
             {
@@ -44,37 +43,42 @@ namespace Application.Service
 
         public bool DeleteClient(int id)
         {
-            return _userRepository.DeleteClient(id);
+            // REFACTORIZACIÓN: Cambio de .DeleteClient(id) → .Delete(id)
+            return _userRepository.Delete(id);
         }
 
         public bool CreateUser(CreateUserRequest request)
         {
-            // Aca iria la logica de negocio ej: Si el email existe
+            // Aquí iría la lógica de negocio, ej: Validar si el email ya existe
 
-            // Esto es el mapeo del DTO a entidad dominio
-            var UserEntity = new User
+            // Mapeo del DTO a entidad de dominio
+            var userEntity = new User
             {
                 Name = request.Name,
                 Email = request.Email,
                 Phone = request.Phone
-            }   
-           ;
-            return _userRepository.CreateUser(UserEntity);
+            };
+            
+            // REFACTORIZACIÓN: Cambio de .CreateUser(userEntity) → .Create(userEntity)
+            return _userRepository.Create(userEntity);
         }
 
         public bool UpdateUser(int id, UpdateUserRequest request)
         {
-            var user = _userRepository.GetUserById(id);
+            // REFACTORIZACIÓN: Cambio de .GetUserById(id) → .GetById(id)
+            var user = _userRepository.GetById(id);
             if (user == null)
             {
-                return false; // Usuario no encontrado
+                return false;
             }
+            
             // Actualizar los campos del usuario con los datos del request
             user.Name = request.Name;
             user.Email = request.Email;
             user.Phone = request.Phone;
-            return _userRepository.UpdateUser(user);
-
+            
+            // REFACTORIZACIÓN: Cambio de .UpdateUser(user) → .Update(user)
+            return _userRepository.Update(user);
         }
     }
 }

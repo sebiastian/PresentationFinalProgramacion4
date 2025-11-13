@@ -1,7 +1,6 @@
 using Application.Interfaces;
-using Application.Abstraction;
+using Domain.Abstraction;
 using Contract.Authentication.Request;
-using Domain.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System;
 
-namespace Application.Service;
+namespace Infrastructure.Service;
 
 public class AuthenticationService : IAuthenticationService
 {
@@ -49,6 +48,7 @@ public class AuthenticationService : IAuthenticationService
 
         var token = new JwtSecurityToken(
             issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"], // ? AGREGADO
             claims: claims,
             expires: DateTime.UtcNow.AddHours(2),
             signingCredentials: creds);

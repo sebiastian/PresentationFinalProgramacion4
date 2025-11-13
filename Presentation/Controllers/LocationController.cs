@@ -1,5 +1,4 @@
-﻿using Application.Abstraction;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Contract.Location.Request;
 using Contract.Location.Response;
 using Microsoft.AspNetCore.Authorization;

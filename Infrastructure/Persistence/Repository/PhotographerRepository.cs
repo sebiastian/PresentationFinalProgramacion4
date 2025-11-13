@@ -1,7 +1,5 @@
-using Application.Abstraction;
+ï»¿using Domain.Abstraction;
 using Domain.Entity;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Infrastructure.Persistence.Repository;
 
@@ -11,28 +9,12 @@ public class PhotographerRepository : RepositoryBase<Photographer>, IPhotographe
     {
     }
 
-    // Métodos específicos que mantienen compatibilidad con el servicio
-    public Photographer GetPhotographerById(int id)
-    {
-        return GetById(id);
-    }
-
-    public List<Photographer> GetAllPhotographers()
-    {
-        return GetAll();
-    }
-
-    public bool CreatePhotographer(Photographer photographer)
-    {
-        return Create(photographer);
-    }
-
     public bool UpdatePhotographer(int id, Photographer photographer)
     {
         var existing = GetById(id);
         if (existing == null) return false;
 
-        // Actualizar campos
+        // Actualizar campos especÃ­ficos
         existing.Name = photographer.Name;
         existing.Email = photographer.Email;
         existing.Phone = photographer.Phone;
@@ -43,10 +25,5 @@ public class PhotographerRepository : RepositoryBase<Photographer>, IPhotographe
         existing.Rol = photographer.Rol;
         
         return Update(existing);
-    }
-
-    public bool DeletePhotographer(int id)
-    {
-        return Delete(id);
     }
 }

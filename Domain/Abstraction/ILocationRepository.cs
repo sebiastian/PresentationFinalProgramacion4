@@ -1,6 +1,6 @@
 ﻿using Domain.Entity;
 
-namespace Application.Abstraction;
+namespace Domain.Abstraction;
 
 public interface ILocationRepository : IRepositoryBase<Location>
 {

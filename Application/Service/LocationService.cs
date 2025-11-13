@@ -1,4 +1,4 @@
-﻿using Application.Abstraction;
+﻿using Domain.Abstraction;
 using Application.Interfaces;
 using Contract.Location.Request;
 using Contract.Location.Response;

@@ -25,7 +25,7 @@ namespace Application.Service
                 "zavalla"    => (-33.03, -60.88),
                 "roldan"     => (-32.83, -60.93),
                 "cordoba"    => (-31.42, -64.19),
-                // Puedes agregar más ciudades aquí
+                
                 _ => (0.0, 0.0) // Coordenadas inválidas
             };
 

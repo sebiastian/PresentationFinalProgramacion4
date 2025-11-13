@@ -1,7 +1,6 @@
-// Application/Abstraction/IRepositoryBase.cs
 using System.Collections.Generic;
 
-namespace Application.Abstraction;
+namespace Domain.Abstraction;
     
 public interface IRepositoryBase<T> where T : class
 {
